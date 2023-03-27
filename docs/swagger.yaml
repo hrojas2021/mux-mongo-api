@@ -1,0 +1,102 @@
+definitions:
+  models.User:
+    properties:
+      id:
+        type: string
+      location:
+        type: string
+      name:
+        type: string
+      title:
+        type: string
+    required:
+    - location
+    - name
+    - title
+    type: object
+host: localhost:7000/
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server User server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      description: get all users
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "404":
+          description: Not Found
+          schema:
+            type: object
+      summary: Get all users
+      tags:
+      - Users
+    post:
+      consumes:
+      - application/json
+      description: Create new user
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: Create new user based on paramters
+      tags:
+      - Users
+  /users/{userId}:
+    get:
+      description: get user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            type: object
+      summary: Get one user
+      tags:
+      - Users
+swagger: "2.0"

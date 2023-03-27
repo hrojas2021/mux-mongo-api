@@ -1,0 +1,153 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server User server.",
+        "title": "Swagger Example API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:7000/",
+    "paths": {
+        "/users": {
+            "get": {
+                "description": "get all users",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.User"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create new user based on paramters",
+                "parameters": [
+                    {
+                        "description": "User Data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "get": {
+                "description": "get user by ID",
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get one user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "type": "object"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.User": {
+            "type": "object",
+            "required": [
+                "location",
+                "name",
+                "title"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

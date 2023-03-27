@@ -19,6 +19,16 @@ import (
 var userCollection *mongo.Collection = configs.GetCollection(configs.DB, "users")
 var validate = validator.New()
 
+// CreateUser ... Create User
+// @Summary Create new user based on paramters
+// @Description Create new user
+// @Tags Users
+// @Accept json
+// @Produce  json
+// @Param user body models.User true "User Data"
+// @Success 200 {object} object
+// @Failure 400,500 {object} object
+// @Router /users [post]
 func CreateUser() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -56,12 +66,21 @@ func CreateUser() http.HandlerFunc {
 			return
 		}
 
+		rw.Header().Set("Content-Type", "application/json")
 		rw.WriteHeader(http.StatusCreated)
 		response := responses.UserResponse{Status: http.StatusCreated, Message: "success", Data: map[string]interface{}{"data": result}}
 		json.NewEncoder(rw).Encode(response)
 	}
 }
 
+// GetUserByID ... Get the user by id
+// @Summary Get one user
+// @Description get user by ID
+// @Tags Users
+// @Param userId path string true "User ID"
+// @Success 200 {object} models.User
+// @Failure 400,404 {object} object
+// @Router /users/{userId} [get]
 func GetAUser() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -81,6 +100,7 @@ func GetAUser() http.HandlerFunc {
 			return
 		}
 
+		rw.Header().Set("Content-Type", "application/json")
 		rw.WriteHeader(http.StatusOK)
 		response := responses.UserResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": user}}
 		json.NewEncoder(rw).Encode(response)
@@ -137,6 +157,7 @@ func EditAUser() http.HandlerFunc {
 			}
 		}
 
+		rw.Header().Set("Content-Type", "application/json")
 		rw.WriteHeader(http.StatusOK)
 		response := responses.UserResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": updatedUser}}
 		json.NewEncoder(rw).Encode(response)
@@ -168,12 +189,20 @@ func DeleteAUser() http.HandlerFunc {
 			return
 		}
 
+		rw.Header().Set("Content-Type", "application/json")
 		rw.WriteHeader(http.StatusOK)
 		response := responses.UserResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": "User successfully deleted!"}}
 		json.NewEncoder(rw).Encode(response)
 	}
 }
 
+// GetUsers ... Get all users
+// @Summary Get all users
+// @Description get all users
+// @Tags Users
+// @Success 200 {array} models.User
+// @Failure 404 {object} object
+// @Router /users [get]
 func GetAllUser() http.HandlerFunc {
 	return func(rw http.ResponseWriter, r *http.Request) {
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -202,6 +231,7 @@ func GetAllUser() http.HandlerFunc {
 			users = append(users, singleUser)
 		}
 
+		rw.Header().Set("Content-Type", "application/json")
 		rw.WriteHeader(http.StatusOK)
 		response := responses.UserResponse{Status: http.StatusOK, Message: "success", Data: map[string]interface{}{"data": users}}
 		json.NewEncoder(rw).Encode(response)

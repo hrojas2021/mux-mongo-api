@@ -7,3 +7,8 @@ This repository shows the source code for building a user management application
 Article Link
 
 [Article Link](https://dev.to/hackmamba/build-a-rest-api-with-golang-and-mongodb-gorillamux-version-57fh)
+
+Refactor this repository to add Swagger with swaggo lib. Some of best coding practices have been skipped.
+
+1. run `go mod download`
+2. run `make init`
