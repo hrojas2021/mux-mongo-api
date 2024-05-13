@@ -1,16 +1,13 @@
 package configs
 
 import (
-	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 func EnvMongoURI() string {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	mongouri := os.Getenv("MONGOURI")
+	if mongouri == "" {
+		mongouri = "mongodb://localhost:27017"
 	}
-	return os.Getenv("MONGOURI")
+	return mongouri
 }

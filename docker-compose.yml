@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - my_network
+
+  go-mongo-container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: go-mongo-container
+    ports:
+      - "7000:7000"
+    environment:
+      MONGOURI: mongodb://root:example@mongodb:27017
+    networks:
+      - my_network
+
+networks:
+  my_network:

@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"mux-mongo-api/configs"
 	"mux-mongo-api/routes"
 	"net/http"
 
@@ -37,7 +36,7 @@ func main() {
 	)).Methods(http.MethodGet)
 
 	//run database
-	configs.ConnectDB()
+	// configs.ConnectDB()
 
 	//routes
 	routes.UserRoute(router) //add this

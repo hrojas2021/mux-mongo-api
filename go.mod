@@ -9,7 +9,6 @@ require (
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gorilla/mux v1.8.0
-	github.com/joho/godotenv v1.4.0
 	github.com/swaggo/http-swagger/v2 v2.0.1
 	github.com/swaggo/swag v1.8.11
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
